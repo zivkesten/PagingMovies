@@ -21,7 +21,7 @@
             android:label="@string/title_activity_main2"
             android:theme="@style/Theme.SearchMovies" />
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.SearchMovies">

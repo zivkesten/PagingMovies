@@ -1,10 +1,7 @@
-package com.zivkesten.searchmovies
+package com.zivkesten.searchmovies.presentation
 
 sealed class UiState {
-
-    object Loading : UiState()
-
+    data object Loading : UiState()
     class Content<T>(val data: T) : UiState()
-
     class Error(val exception: Throwable) : UiState()
 }

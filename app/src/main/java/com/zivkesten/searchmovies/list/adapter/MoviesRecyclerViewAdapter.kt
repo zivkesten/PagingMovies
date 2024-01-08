@@ -3,13 +3,10 @@ package com.zivkesten.searchmovies.list.adapter
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.zivkesten.searchmovies.MovieDto
-import com.zivkesten.searchmovies.list.callback.OnItemClickListener
-import com.zivkesten.searchmovies.list.types.MovieViewHolder
+import com.zivkesten.searchmovies.data.model.MovieDto
+import com.zivkesten.searchmovies.list.viewholders.MovieViewHolder
 
-class MoviesRecyclerViewAdapter(
-    private val listener: OnItemClickListener
-) : PagingDataAdapter<MovieDto, MovieViewHolder>(PHOTO_COMPARATOR) {
+class MoviesRecyclerViewAdapter: PagingDataAdapter<MovieDto, MovieViewHolder>(PHOTO_COMPARATOR) {
 
     companion object {
         private val PHOTO_COMPARATOR = object : DiffUtil.ItemCallback<MovieDto>() {
@@ -22,7 +19,7 @@ class MoviesRecyclerViewAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return MovieViewHolder.create(parent, listener)
+        return MovieViewHolder.create(parent)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {

@@ -3,7 +3,7 @@ package com.zivkesten.searchmovies.list
 import android.view.ViewGroup
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
-import com.zivkesten.searchmovies.list.types.LoadingFooterViewHolder
+import com.zivkesten.searchmovies.list.viewholders.LoadingFooterViewHolder
 
 class MoviesLoadStateAdapter(private val retry: () -> Unit) : LoadStateAdapter<LoadingFooterViewHolder>() {
     override fun onBindViewHolder(holder: LoadingFooterViewHolder, loadState: LoadState) {

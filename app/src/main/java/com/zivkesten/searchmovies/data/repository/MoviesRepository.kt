@@ -3,8 +3,7 @@ package com.zivkesten.searchmovies.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.zivkesten.searchmovies.MovieDto
-import com.zivkesten.searchmovies.MovieResponse
+import com.zivkesten.searchmovies.data.model.MovieDto
 import com.zivkesten.searchmovies.data.api.MoviesApiService
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

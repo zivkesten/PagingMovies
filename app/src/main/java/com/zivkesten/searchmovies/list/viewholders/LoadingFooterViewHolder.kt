@@ -1,4 +1,4 @@
-package com.zivkesten.searchmovies.list.types
+package com.zivkesten.searchmovies.list.viewholders
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -1,9 +1,6 @@
 package com.zivkesten.searchmovies.data.api
 
-import androidx.paging.PagingData
-import com.zivkesten.searchmovies.MovieDto
-import com.zivkesten.searchmovies.MovieResponse
-import kotlinx.coroutines.flow.Flow
+import com.zivkesten.searchmovies.data.model.MovieResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
