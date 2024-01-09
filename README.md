@@ -14,6 +14,8 @@ This Android application 📱 is an example project featuring several Android fe
 - **MVVM Architecture** 🏛️: Ensures a separation of concerns and an easier testing process.
 - **Room Database** 🗄️: For robust and efficient local data storage.
 
+- <img src="https://github.com/zivkesten/PagingMovies/blob/master/sample.gif" width="250">
+
 ## 🚀 Getting Started
 To get started with this project, clone the repository and import it into Android Studio.
 
