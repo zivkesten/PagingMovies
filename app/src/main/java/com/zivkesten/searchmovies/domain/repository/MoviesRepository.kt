@@ -10,14 +10,13 @@ import com.zivkesten.searchmovies.data.api.model.MovieDto
 import com.zivkesten.searchmovies.data.local.MovieDao
 import com.zivkesten.searchmovies.data.local.MovieEntity
 import com.zivkesten.searchmovies.domain.model.Movie
-import com.zivkesten.searchmovies.domain.repository.MoviesPagingSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class MoviesRepository @Inject constructor(
     private val apiService: MoviesApiService,
-    private val movieDao: MovieDao // Inject the DAO here
+    private val movieDao: MovieDao
 ) {
 
     suspend fun searchMovies(searchTerm: String): Flow<PagingData<Movie>> {
@@ -31,7 +30,6 @@ class MoviesRepository @Inject constructor(
     }
 
     suspend fun cacheMovies(movies: List<Movie>) {
-        Log.d("Zivi", "Cache items $movies")
         movieDao.replaceAll(movies.toEntity())
     }
 

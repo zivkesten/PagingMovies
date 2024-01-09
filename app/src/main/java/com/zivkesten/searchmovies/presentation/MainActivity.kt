@@ -10,7 +10,6 @@ import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zivkesten.searchmovies.data.api.model.MovieDto
 import com.zivkesten.searchmovies.databinding.ActivityMainBinding
 import com.zivkesten.searchmovies.domain.model.Movie
 import com.zivkesten.searchmovies.presentation.list.MoviesLoadStateAdapter

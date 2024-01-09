@@ -28,5 +28,5 @@
         android:layout_gravity="center"
         android:clickable="true"
         android:focusable="true"
-        android:text="RETRY"/>
+        android:text="@string/retry"/>
 </LinearLayout>

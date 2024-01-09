@@ -72,10 +72,7 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-
-
         <androidx.recyclerview.widget.RecyclerView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -99,7 +96,7 @@
         <TextView
             android:id="@+id/error_msg"
             android:layout_gravity="center"
-            android:text="Error"
+            android:text="@string/error"
             android:textSize="40sp"
             android:padding="16dp"
             android:textAlignment="center"

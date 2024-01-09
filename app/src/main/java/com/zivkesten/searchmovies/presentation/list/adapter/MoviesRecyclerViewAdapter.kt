@@ -3,7 +3,6 @@ package com.zivkesten.searchmovies.presentation.list.adapter
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.zivkesten.searchmovies.data.api.model.MovieDto
 import com.zivkesten.searchmovies.domain.model.Movie
 import com.zivkesten.searchmovies.presentation.list.viewholders.MovieViewHolder
 
