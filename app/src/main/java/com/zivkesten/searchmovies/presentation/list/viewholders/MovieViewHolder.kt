@@ -1,5 +1,6 @@
 package com.zivkesten.searchmovies.presentation.list.viewholders
 
+import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val media: ImageView = view.findViewById(R.id.movie_image)
     private var movie: Movie? = null
 
+    @SuppressLint("SetTextI18n")
     fun bind(movie: Movie?) {
         if (movie == null) {
             name.text = "loading"
