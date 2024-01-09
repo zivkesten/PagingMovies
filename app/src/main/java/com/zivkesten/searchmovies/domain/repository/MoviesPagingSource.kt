@@ -1,4 +1,4 @@
-package com.zivkesten.searchmovies.data.repository
+package com.zivkesten.searchmovies.domain.repository
 
 import android.net.http.HttpException
 import android.os.Build
@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.annotation.RequiresExtension
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.zivkesten.searchmovies.data.model.MovieDto
+import com.zivkesten.searchmovies.data.api.model.MovieDto
 import com.zivkesten.searchmovies.data.api.MoviesApiService
 import java.io.IOException
 

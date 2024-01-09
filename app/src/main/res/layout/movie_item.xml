@@ -7,14 +7,15 @@
     android:padding="16dp">
 
     <!-- ImageView for the movie image -->
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/movie_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/ic_search"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/RoundedCorners"/>
 
     <!-- Title of the movie -->
     <TextView

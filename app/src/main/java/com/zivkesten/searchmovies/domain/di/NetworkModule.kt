@@ -1,4 +1,4 @@
-package com.zivkesten.searchmovies.di
+package com.zivkesten.searchmovies.domain.di
 
 import com.zivkesten.searchmovies.data.api.MoviesApiService
 import dagger.Module
@@ -21,7 +21,7 @@ object NetworkModule {
     }
 
     @Provides
-    fun provideBlogApiService(retrofit: Retrofit): MoviesApiService {
+    fun provideMovieApiService(retrofit: Retrofit): MoviesApiService {
         return retrofit.create(MoviesApiService::class.java)
     }
 }

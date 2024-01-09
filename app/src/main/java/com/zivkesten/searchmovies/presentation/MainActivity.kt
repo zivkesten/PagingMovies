@@ -1,6 +1,7 @@
 package com.zivkesten.searchmovies.presentation
 
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.View
 import androidx.activity.ComponentActivity
@@ -9,10 +10,11 @@ import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zivkesten.searchmovies.data.model.MovieDto
+import com.zivkesten.searchmovies.data.api.model.MovieDto
 import com.zivkesten.searchmovies.databinding.ActivityMainBinding
-import com.zivkesten.searchmovies.list.MoviesLoadStateAdapter
-import com.zivkesten.searchmovies.list.adapter.MoviesRecyclerViewAdapter
+import com.zivkesten.searchmovies.domain.model.Movie
+import com.zivkesten.searchmovies.presentation.list.MoviesLoadStateAdapter
+import com.zivkesten.searchmovies.presentation.list.adapter.MoviesRecyclerViewAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -38,7 +40,6 @@ class MainActivity : ComponentActivity() {
     private fun collectUiState() {
         lifecycleScope.launch {
             viewModel.uiState.collect {
-
                 updateUi(it)
             }
         }
@@ -56,6 +57,8 @@ class MainActivity : ComponentActivity() {
                 hideMessage()
             }
         }
+
+        binding?.searchEditText?.text = Editable.Factory.getInstance().newEditable(viewModel.searchQuery.value)
     }
 
     private fun hideMessage() {
@@ -93,8 +96,7 @@ class MainActivity : ComponentActivity() {
                         hideMessage()
                         lifecycleScope.launch {
                             updateList(state)
-                            delay(3000)
-                            toggleLoader(false)
+
                         }
                     }
                 }
@@ -113,7 +115,15 @@ class MainActivity : ComponentActivity() {
     }
 
     private suspend fun updateList(state: UiState.Content<*>) {
-        state.data?.let { moviesAdapter?.submitData(it as PagingData<MovieDto>) }
+        state.data?.let {
+            moviesAdapter?.submitData(it as PagingData<Movie>)
+            var movies = moviesAdapter?.snapshot()?.items
+            Log.d("Zivi", "snapshot $movies")
+            delay(500)
+            movies = moviesAdapter?.snapshot()?.items
+            Log.d("Zivi", "snapshot $movies")
+            viewModel.cacheItems(movies)
+        }
     }
 
     private fun showMessage(message: String? = null) {

@@ -1,4 +1,4 @@
-package com.zivkesten.searchmovies.data.model
+package com.zivkesten.searchmovies.data.api.model
 
 import com.google.gson.annotations.SerializedName
 

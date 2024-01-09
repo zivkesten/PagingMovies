@@ -8,8 +8,8 @@ import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.zivkesten.searchmovies.data.model.MovieDto
-import com.zivkesten.searchmovies.data.repository.MoviesRepository
+import com.zivkesten.searchmovies.domain.model.Movie
+import com.zivkesten.searchmovies.domain.repository.MoviesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -17,15 +17,17 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
 private const val TOO_MANY_RESULTS = "Too many results."
-private const val WELCOME_MESSAGE = "HELLO!"
+private const val WELCOME_MESSAGE = "WELCOME!"
 private const val NOT_FOUND = "Movie not found!"
 
 @HiltViewModel
@@ -48,7 +50,9 @@ class MoviesViewModel @Inject constructor(
     private var loadJob: Job? = null
 
     init {
+
         viewModelScope.launch {
+            restoreFromCache()
             searchQueryFlow.collect {
                 getMoviesFlow(it)
                 savedStateHandle[SEARCH_QUERY_KEY] = it
@@ -57,8 +61,18 @@ class MoviesViewModel @Inject constructor(
         searchQuery.value = savedStateHandle.get<String>(SEARCH_QUERY_KEY) ?: ""
     }
 
+    private suspend fun MoviesViewModel.restoreFromCache() {
+        val cache = repository.restoreCache()
+        if (cache.isNotEmpty()) {
+            updateUi(PagingData.from(cache))
+        } else {
+            resetScreen()
+        }
+    }
+
     private fun getMoviesFlow(query: String) {
         loadJob?.cancel()
+
         loadJob = viewModelScope.launch(Dispatchers.IO) {
             repository.searchMovies(query)
                 .cachedIn(viewModelScope)
@@ -66,7 +80,11 @@ class MoviesViewModel @Inject constructor(
         }
     }
 
-    private suspend fun updateUi(pagingData: PagingData<MovieDto>) {
+    private fun resetScreen() {
+        _uiState.value = UiState.Content(WELCOME_MESSAGE)
+    }
+
+    private suspend fun updateUi(pagingData: PagingData<Movie>) {
         withContext(Dispatchers.Main) {
             try {
                 _uiState.value = UiState.Content(pagingData)
@@ -95,6 +113,14 @@ class MoviesViewModel @Inject constructor(
                 }
             }
             else -> Unit // No need to handle other cases ATM
+        }
+    }
+
+    fun cacheItems(items: List<Movie>?) {
+        items?.let {
+            viewModelScope.launch(Dispatchers.IO) {
+                repository.cacheMovies(items)
+            }
         }
     }
 

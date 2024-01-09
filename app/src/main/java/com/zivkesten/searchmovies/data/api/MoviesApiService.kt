@@ -1,6 +1,6 @@
 package com.zivkesten.searchmovies.data.api
 
-import com.zivkesten.searchmovies.data.model.MovieResponse
+import com.zivkesten.searchmovies.data.api.model.MovieResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
