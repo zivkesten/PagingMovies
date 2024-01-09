@@ -2,12 +2,11 @@ package com.zivkesten.searchmovies.domain.repository
 
 import android.net.http.HttpException
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresExtension
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.zivkesten.searchmovies.data.api.model.MovieDto
 import com.zivkesten.searchmovies.data.api.MoviesApiService
+import com.zivkesten.searchmovies.data.api.model.MovieDto
 import java.io.IOException
 
 private const val STARTING_PAGE_INDEX  = 1
