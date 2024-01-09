@@ -38,7 +38,6 @@ class MoviesPagingSource(
                     )
                 }
                 else -> {
-                    Log.e("Zivi", "MoviesPagingSource -> else UNKNOWN")
                     LoadResult.Error(Exception("Unknown"))
                 }
             }

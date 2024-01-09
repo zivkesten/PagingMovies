@@ -19,8 +19,6 @@ class MoviesRepository @Inject constructor(
     private val movieDao: MovieDao
 ) {
     fun searchMovies(searchTerm: String): Flow<PagingData<Movie>> {
-
-        // If cache is empty or outdated, fetch from network
         return Pager(
             config = PagingConfig(pageSize = 10, enablePlaceholders = true),
             pagingSourceFactory = { MoviesPagingSource(apiService, searchTerm) }
