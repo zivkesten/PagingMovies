@@ -5,9 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.zivkesten.searchmovies.data.api.MoviesApiService
-import com.zivkesten.searchmovies.data.api.model.MovieDto
 import com.zivkesten.searchmovies.data.local.MovieDao
-import com.zivkesten.searchmovies.data.local.MovieEntity
 import com.zivkesten.searchmovies.domain.mapper.toDomain
 import com.zivkesten.searchmovies.domain.mapper.toDomainMedia
 import com.zivkesten.searchmovies.domain.mapper.toEntity

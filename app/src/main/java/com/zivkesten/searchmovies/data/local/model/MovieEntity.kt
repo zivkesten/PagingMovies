@@ -1,4 +1,4 @@
-package com.zivkesten.searchmovies.data.local
+package com.zivkesten.searchmovies.data.local.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -38,17 +38,15 @@ class MoviesViewModel @Inject constructor(
     val uiState: StateFlow<UiState> = _uiState
 
     val searchQuery = MutableStateFlow("")
-
-    // Exposed as a Flow to be collected in the Activity
-    @OptIn(FlowPreview::class)
-    val searchQueryFlow: Flow<String> = searchQuery
-        .debounce(600) // Debounce for 600 ms
-        .filter { it.length >= 3 } // Only emit if length is 3 or more
-
     private var loadJob: Job? = null
 
-    init {
+    @OptIn(FlowPreview::class)
+    private val searchQueryFlow: Flow<String> = searchQuery
+        .debounce(600)
+        .filter { it.length >= 3 } // Only emit if length is 3 or more
 
+
+    init {
         viewModelScope.launch {
             restoreFromCache()
             searchQueryFlow.collect {
@@ -70,7 +68,6 @@ class MoviesViewModel @Inject constructor(
 
     private fun getMoviesFlow(query: String) {
         loadJob?.cancel()
-
         loadJob = viewModelScope.launch(Dispatchers.IO) {
             repository.searchMovies(query)
                 .cachedIn(viewModelScope)
@@ -93,7 +90,7 @@ class MoviesViewModel @Inject constructor(
         }
     }
 
-    fun onLoadState(state: CombinedLoadStates) {
+    fun onLoadState(state: CombinedLoadStates, items: List<Movie>?) {
         when (state.source.refresh) {
             is LoadState.Error -> {
                 val errorState = state.source.append as? LoadState.Error
@@ -110,15 +107,14 @@ class MoviesViewModel @Inject constructor(
                     }
                 }
             }
+            is LoadState.NotLoading ->  items?.let { cacheItems(it) }
             else -> Unit // No need to handle other cases ATM
         }
     }
 
-    fun cacheItems(items: List<Movie>?) {
-        items?.let {
-            viewModelScope.launch(Dispatchers.IO) {
-                repository.cacheMovies(items)
-            }
+    private fun cacheItems(items: List<Movie>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.cacheMovies(items)
         }
     }
 

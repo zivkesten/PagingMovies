@@ -1,7 +1,7 @@
 package com.zivkesten.searchmovies.domain.mapper
 
 import com.zivkesten.searchmovies.data.api.model.MovieDto
-import com.zivkesten.searchmovies.data.local.MovieEntity
+import com.zivkesten.searchmovies.data.local.model.MovieEntity
 import com.zivkesten.searchmovies.domain.model.Movie
 
 
@@ -22,14 +22,6 @@ fun List<Movie>.toEntity() = map {
         poster = it.poster
     )
 }
-
-fun MovieDto.toEntity() = MovieEntity(
-    id = imdbID.hashCode(),
-    title = this.title,
-    year = this.year,
-    type = this.type,
-    poster = this.poster
-)
 
 fun List<MovieEntity>.toDomainMedia() = map {
     Movie(
